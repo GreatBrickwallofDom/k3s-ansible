@@ -9,6 +9,13 @@
     state: disabled
   when: ansible_os_family == "RedHat"
 
+- name: Disable firewalld until full port list is compiled
+  ansible.builtin.systemd:
+    name: firewalld
+    state: stopped
+    enabled: false
+  when: ansible_os_family == "RedHat"
+
 - name: Enable IPv4 forwarding
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward
